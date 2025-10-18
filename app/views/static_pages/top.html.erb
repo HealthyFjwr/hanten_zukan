@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>飯店図鑑（仮）</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="bg-gray-50 text-gray-900">
+    <%= render "shared/header" %>
+
+    <main class="min-h-screen">
+      <h1>Hello Machichuka</h1>
+      <%= yield %>  <!-- 各ページの中身がここに入る -->
+    </main>
+
+    <%= render "shared/footer" %>
+  </body>
+</html>
