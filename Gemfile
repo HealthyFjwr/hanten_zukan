@@ -65,3 +65,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem 'dotenv', '~> 3.1', '>= 3.1.8'
