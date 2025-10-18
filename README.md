@@ -1,75 +1,24 @@
-# 飯店図鑑（仮）
-### 「町中華」だけを探せるグルメ検索サービス
+# README
 
-**飯店図鑑（仮）** は、「町中華」に特化した検索サービスです。
-通常のグルメサイトでは「中華料理」全般やラーメン店が混ざってしまうため、
-純粋に“町中華だけ”を探したい人に向けたサービスです。
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
-## 開発のきっかけ
-町中華が好きで、いろんなお店を知りたかった。
-でも、既存サービスでは検索結果に高級中華やラーメン店が混ざる。
-そこで、**“町中華のみを検索できる”** サービスを自分で作ることにしました。
+Things you may want to cover:
 
-## 想定ユーザー
-- 町中華が好きな20〜40代
-- 出先でランチ・夕食に迷う人
-- 地元の隠れた名店を発見したい人
-- 一人でも気軽に入れる大衆中華を探す人
+* Ruby version
 
-## サービス利用イメージ
-- 出先で「どこで中華食べよ？」となった時
-- 新しい町中華を開拓したい時
-- 昭和感のある店を見つけたい時
+* System dependencies
 
-## ユーザーの獲得について
-- SNS
+* Configuration
 
-## サービスの差別化ポイント・推しポイント
-通常のグルメサイトでは「中華」のカテゴリに埋もれがち。
-**飯店図鑑** は、“町中華”だけを抽出して表示することに特化しています。
+* Database creation
 
-## 機能一覧
-### MVP版
-- アカウント登録機能（Devise）
-- 外部APIからの町中華データ取得
-- 対応エリア：大阪府
-- ブックマーク機能
-- レビュー機能
-- フリーワード検索
-- いいね機能❤️
+* Database initialization
 
-### 本リリース候補
-- 閲覧数ランキング機能
-- 現在地から近い町中華を地図表示（位置情報）
-- フォロー
-- ランキング
-- DBの定期更新タスク
-- 対応エリア拡大
-- 検索機能（エリア指定 大阪市内のエリアと市外で検索可）
-- 管理者ページ実装（店舗情報の追加機能）
+* How to run the test suite
 
+* Services (job queues, cache servers, search engines, etc.)
 
-### 使用する技術スタック
-| 分類 | 内容 |
-|------|------|
-| フロントエンド | ERB + Hotwire + Tailwind（MVP版） / React + Tailwind（本リリース） |
-| バックエンド | Ruby on Rails 7 |
-| DB | PostgreSQL |
-| インフラ | Docker |
-| デプロイ | Render（Scheduled Jobsで定期タスク実行） |
+* Deployment instructions
 
-### 使用Gem
-| 用途 | Gem名 |
-|------|--------|
-| フレームワーク | `rails` |
-| フロント | `turbo-rails` |
-| CSS | `tailwindcss-rails` |
-| DB連携 | `pg` |
-| 認証 | `devise` |
-| ページネーション | `kaminari` |
-| テスト | `rspec-rails`, `factory_bot_rails`, `faker` |
-| データ取得 | `net/http`（標準ライブラリ） |
-
-### 外部API
-- 飲食店情報：Hot Pepper Gourmet API ※商用利用不可
-- 位置情報：Google Maps API
+* ...
