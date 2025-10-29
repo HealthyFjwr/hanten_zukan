@@ -1,4 +1,6 @@
 class StaticPagesController < ApplicationController
-  
-  def top; end
+  def top
+    @q = Restaurant.ransack(params[:q])
+    @restaurants = @q.result(distinct: true)
+  end
 end
