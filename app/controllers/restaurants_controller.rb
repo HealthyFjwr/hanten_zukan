@@ -5,6 +5,10 @@ class RestaurantsController < ApplicationController
     @restaurants = @q.result(distinct: true).order(:name)
   end
 
+  def show
+    @restaurant = Restaurant.find(params[:id])
+  end
+
   private
 
   def set_q
