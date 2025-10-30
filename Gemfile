@@ -66,4 +66,11 @@ group :test do
   gem "selenium-webdriver"
 end
 
+# APIキー管理
 gem 'dotenv', '~> 3.1', '>= 3.1.8'
+
+# 検索機能
+gem 'ransack'
+
+# Tailwind CSSフレームワーク
+gem "tailwindcss-rails"
