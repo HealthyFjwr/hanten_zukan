@@ -1,7 +1,8 @@
 FROM ruby:3.2.2
 
 # 必要パッケージをインストール
-RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
+RUN apt-get update -qq && apt-get install -y nodejs npm postgresql-client \
+  && npm install --global yarn
 
 # 作業ディレクトリ
 WORKDIR /app

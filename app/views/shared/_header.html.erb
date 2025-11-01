@@ -1,16 +1,22 @@
-<header class="bg-yellow-400 text-gray-900 p-4">
+<header class="bg-yellow-400 text-gray-900 p-4 shadow-md fixed top-0 left-0 w-full z-50">
   <div class="container mx-auto flex justify-between items-center">
     <h1 class="font-bold text-xl">
       <%= link_to "飯店なび", root_path, class: "hover:underline" %>
     </h1>
-  </div>
-  <%# ログインボタン挿入場所%>
-  <div class="container mx-auto flex justify-end items-center mt-2">
+    <div class="bg-blue-500 text-white p-4 rounded">
+      Tailwind動いてるで！
+    </div>
+
     <% if user_signed_in? %>
-      <span class="mr-4">ようこそ、<%= current_user.email %>さん</span>
-      <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" %>
+      <div class="flex items-center space-x-4">
+        <span>ようこそ、<%= current_user.email %>さん</span>
+        <%= link_to "ログアウト", destroy_user_session_path,
+            data: { turbo_method: :delete },
+            class: "bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" %>
+      </div>
     <% else %>
-      <%= link_to "ログイン", new_user_session_path, class: "bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" %>
+      <%= link_to "ログイン", new_user_session_path,
+          class: "bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" %>
     <% end %>
   </div>
 </header>
