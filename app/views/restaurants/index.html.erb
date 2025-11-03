@@ -1,6 +1,6 @@
 <div class="flex h-[calc(100vh-8rem)]">
   <div class="w-full md:w-1/4 bg-gray-50 border-r p-6 overflow-y-auto">
-    <%= link_to "← Top", root_path, class: "text-red-500 hover:underline block mt-6" %>
+    <%= link_to "← Top", root_path, class: "text-red-500 hover:underline block mt-1" %>
     <h2 class="text-xl font-bold mb-4">検索</h2>
 
     <%= search_form_for @q, url: restaurants_path, method: :get, html: { class: "space-y-4" } do |f| %>
