@@ -1,0 +1,22 @@
+plugins:
+  - rubocop-rails
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.2
+  Exclude:
+    - 'bin/**/*'
+    - 'db/schema.rb'
+    - 'db/migrate/**/*'
+    - 'config/**/*'
+    - 'Gemfile'
+    - 'Rakefile'
+    - 'vendor/**/*'
+    - 'node_modules/**/*'
+    - 'tmp/**/*'
+    - 'log/**/*'
+
+Metrics:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false

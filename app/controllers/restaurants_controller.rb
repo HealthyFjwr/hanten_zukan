@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RestaurantsController < ApplicationController
   before_action :set_q, only: [:index]
 
