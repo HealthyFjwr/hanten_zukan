@@ -55,7 +55,7 @@
 | バックエンド | Ruby on Rails 7 |
 | DB | PostgreSQL |
 | インフラ | Docker |
-| デプロイ | Render |
+| デプロイ | Render + Supabase|
 
 ### 使用Gem
 | 用途 | Gem名 |
