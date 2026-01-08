@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# 改修予定
 class Restaurant < ApplicationRecord
   validates :name, presence: true
   validates :place_id, presence: true, uniqueness: true
