@@ -23,44 +23,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_31_000800) do
     t.string "phone_number"
     t.string "website"
     t.text "opening_hours"
-    t.boolean "is_chain", default: false
-    t.boolean "is_machi_chuka", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_restaurants_on_name"
     t.index ["place_id"], name: "index_restaurants_on_place_id", unique: true
-  end
-
-  create_table "restaurants_backup_all_restaurants", id: false, force: :cascade do |t|
-    t.bigint "id"
-    t.string "place_id"
-    t.string "name"
-    t.string "address"
-    t.decimal "latitude", precision: 10, scale: 7
-    t.decimal "longitude", precision: 10, scale: 7
-    t.string "phone_number"
-    t.string "website"
-    t.text "opening_hours"
-    t.boolean "is_chain"
-    t.boolean "is_machi_chuka"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "restaurants_backup_v1", id: false, force: :cascade do |t|
-    t.bigint "id"
-    t.string "place_id"
-    t.string "name"
-    t.string "address"
-    t.decimal "latitude", precision: 10, scale: 7
-    t.decimal "longitude", precision: 10, scale: 7
-    t.string "phone_number"
-    t.string "website"
-    t.text "opening_hours"
-    t.boolean "is_chain"
-    t.boolean "is_machi_chuka"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "users", force: :cascade do |t|

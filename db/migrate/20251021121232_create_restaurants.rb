@@ -9,8 +9,6 @@ class CreateRestaurants < ActiveRecord::Migration[7.1]
       t.string  :phone_number #電話番号
       t.string  :website #ウェブサイト
       t.text    :opening_hours #営業時間
-      t.boolean :is_chain, default: false
-      t.boolean :is_machi_chuka, default: false
 
       t.timestamps
     end
