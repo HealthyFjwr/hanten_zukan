@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   # Devise admin root
   namespace :admin do
+    get 'dashboard/index'
     root "dashboard#index"
   end
 
