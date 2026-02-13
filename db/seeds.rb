@@ -10,15 +10,17 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+# db/seeds.rb
+
 return if Rails.env.test?
 
-admin_email = ENV["ADMIN_USER"]
-admin_password = ENV["ADMIN_PASSWORD"]
+admin_email = ENV.fetch('ADMIN_USER', nil)
+admin_password = ENV.fetch('ADMIN_PASSWORD', nil)
 
 return if admin_email.blank? || admin_password.blank?
 
 User.find_or_create_by!(email: admin_email) do |u|
   u.password = admin_password
   u.admin = true
-  u.username = "admin"
+  u.username = 'admin'
 end
