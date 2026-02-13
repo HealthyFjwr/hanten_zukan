@@ -12,7 +12,7 @@ RSpec.describe 'Admin::Dashboards', type: :request do
     end
 
     context 'ログイン済み' do
-      let(:admin) { create(:admin) }
+      let(:admin) { create(:admin_user) }
 
       it 'HTTP response 200' do
         sign_in admin

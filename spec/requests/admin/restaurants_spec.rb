@@ -12,7 +12,7 @@ RSpec.describe 'Admin::Restaurants', type: :request do
     end
 
     context 'ログイン済み' do
-      let(:admin) { create(:admin) }
+      let(:admin) { create(:admin_user) }
 
       it '200で表示される' do
         sign_in admin

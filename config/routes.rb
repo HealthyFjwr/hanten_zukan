@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :admins
+  devise_for :admin_users, path: 'admin'
   devise_for :users
   root 'static_pages#top'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
