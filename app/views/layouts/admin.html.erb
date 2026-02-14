@@ -16,8 +16,8 @@
                    padding:0 16px;">
       <strong>飯店図鑑 管理画面</strong>
       <div>
-        <span style="margin-right:12px;"><%= current_user&.username %></span>
-        <%= button_to "ログアウト", destroy_user_session_path,
+        <span style="margin-right:12px;"><%= current_admin_user&.email %></span>
+        <%= button_to "ログアウト", destroy_admin_user_session_path,
               method: :delete,
               style: "padding:6px 10px; border-radius:6px; border:none; cursor:pointer;" %>
       </div>
