@@ -15,12 +15,10 @@
 return if Rails.env.test?
 
 admin_email = ENV.fetch('ADMIN_USER', nil)
-admin_password = ENV.fetch('ADMIN_PASSWORD', nil)
+admin_password = ENV.fetch('ADMIN_PASS', nil)
 
 return if admin_email.blank? || admin_password.blank?
 
-User.find_or_create_by!(email: admin_email) do |u|
-  u.password = admin_password
-  u.admin = true
-  u.username = 'admin'
+AdminUser.find_or_create_by!(email: admin_email) do |a|
+  a.password = admin_password
 end
