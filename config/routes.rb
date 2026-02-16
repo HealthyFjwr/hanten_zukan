@@ -8,6 +8,14 @@ Rails.application.routes.draw do
   namespace :admin do
     root "dashboard#index"
     resources :restaurants, only: [:index]
+    resources :search_restaurants, only: [:index] do
+      collection do
+        get :search
+        get :details
+      end
+    end
+
+    # get 'search_restaurant/index'
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
