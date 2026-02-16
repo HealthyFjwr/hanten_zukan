@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Admin
   class SearchRestaurantsController < Admin::BaseController
     def index
@@ -21,9 +23,8 @@ module Admin
 
     def build_query
       [params[:prefecture],
-        params[:city],
-        params[:keyword]
-      ].reject(&:blank?).join(" ")
+       params[:city],
+       params[:keyword]].compact_blank.join(' ')
     end
   end
 end
