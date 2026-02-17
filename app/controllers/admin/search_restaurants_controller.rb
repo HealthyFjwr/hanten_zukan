@@ -2,6 +2,8 @@
 
 module Admin
   class SearchRestaurantsController < Admin::BaseController
+    before_action :set_db_stats, only: %i[index search create]
+
     def index
       @query = ''
       @candidates = []
@@ -28,29 +30,17 @@ module Admin
       @selected_place_ids = Array(params[:place_ids]).reject(&:blank?).map(&:to_s)
       if @selected_place_ids.empty?
         flash.now[:alert] = '店舗を選択していません'
-        @fetched_details = []
         @saved_restaurants = []
         return render :index
       end
 
-      @fetched_details = []
-      @saved_restaurants = []
-      errors = []
+      result = Restaurants::ImportFromGoogleDetails.call(@selected_place_ids)
 
-      @selected_place_ids.each do |place_id|
-        begin
-          detail = GooglePlaces::Details.fetch(place_id) # ← 既存 details.rb を使う
-          @fetched_details << detail
+      @saved_restaurants = result.saved_restaurants
 
-          restaurant = Restaurants::UpsertFromGoogleDetail.call(detail) # ← upsertだけを別サービスへ
-          @saved_restaurants << restaurant
-        rescue StandardError => e
-          errors << "#{place_id}: #{e.message}"
-          next
-        end
-      end
+      flash.now[:notice] = "保存完了: #{result.saved_count}件" if result.saved_count.positive?
+      flash.now[:alert] = "一部の取得/保存で失敗したで: #{result.errors.join(' / ')}" if result.failed?
 
-      flash.now[:alert] = "一部の取得/保存で失敗したで: #{errors.join(' / ')}" if errors.any?
       render :index
     end
 
@@ -60,6 +50,10 @@ module Admin
       [params[:prefecture],
        params[:city],
        params[:keyword]].compact_blank.join(' ')
+    end
+
+    def set_db_stats
+      @restaurant_count = Restaurant.count
     end
   end
 end

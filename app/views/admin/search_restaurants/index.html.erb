@@ -8,6 +8,17 @@
 
 <h1 style="margin:0 0 12px;">飲食店追加 </h1>
 
+<% if defined?(@restaurant_count) %>
+  <div style="margin-top:12px; padding:10px; border:1px solid #e5e7eb; border-radius:10px; background:#fff;">
+    DB登録店舗数: <strong style="font-size:18px;"><%= @restaurant_count %></strong> 件
+    <% if defined?(@saved_restaurants) && @saved_restaurants.present? %>
+      <span style="margin-left:12px;">
+        今回保存: <strong style="font-size:18px;"><%= @saved_restaurants.size %></strong> 件
+      </span>
+    <% end %>
+  </div>
+<% end %>
+
 <form method="get" action="<%= search_admin_search_restaurants_path %>">
   <input type="text" name="prefecture" placeholder="都道府県"
          style="padding:8px; width:160px; border:1px solid #d1d5db; border-radius:8px;">
