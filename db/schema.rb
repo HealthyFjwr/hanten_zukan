@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_02_14_060503) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_17_202558) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -35,11 +35,14 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_14_060503) do
     t.decimal "longitude", precision: 10, scale: 7, null: false
     t.string "phone_number"
     t.string "website"
-    t.text "opening_hours"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "rating", precision: 2, scale: 1
+    t.integer "user_rating_count"
+    t.jsonb "opening_hours", default: {}, null: false
     t.index ["name"], name: "index_restaurants_on_name"
     t.index ["place_id"], name: "index_restaurants_on_place_id", unique: true
+    t.index ["rating"], name: "index_restaurants_on_rating"
   end
 
   create_table "users", force: :cascade do |t|
