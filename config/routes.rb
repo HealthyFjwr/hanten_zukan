@@ -8,10 +8,9 @@ Rails.application.routes.draw do
   namespace :admin do
     root "dashboard#index"
     resources :restaurants, only: [:index]
-    resources :search_restaurants, only: [:index] do
+    resources :search_restaurants, only: [:index, :create] do
       collection do
         get :search
-        get :details
       end
     end
 
