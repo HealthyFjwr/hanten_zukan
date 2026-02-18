@@ -7,7 +7,4 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   validates :username, presence: true, uniqueness: true, length: { maximum: 15 }
 
-  def admin?
-    admin
-  end
 end
