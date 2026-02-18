@@ -17,7 +17,7 @@ module Restaurants
     end
 
     def initialize(place_ids)
-      @place_ids = Array(place_ids).reject(&:blank?).map(&:to_s)
+      @place_ids = Array(place_ids).compact_blank.map(&:to_s)
     end
 
     def call
@@ -25,13 +25,11 @@ module Restaurants
       errors = []
 
       @place_ids.each do |place_id|
-        begin
-          detail = GooglePlaces::Details.fetch(place_id)
-          restaurant = Restaurants::UpsertFromGoogleDetail.call(detail)
-          saved_restaurants << restaurant
-        rescue StandardError => e
-          errors << "#{place_id}: #{e.message}"
-        end
+        detail = GooglePlaces::Details.fetch(place_id)
+        restaurant = Restaurants::UpsertFromGoogleDetail.call(detail)
+        saved_restaurants << restaurant
+      rescue StandardError => e
+        errors << "#{place_id}: #{e.message}"
       end
 
       Result.new(saved_restaurants:, errors:)

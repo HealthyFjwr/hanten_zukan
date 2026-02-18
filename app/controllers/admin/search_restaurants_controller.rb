@@ -27,9 +27,10 @@ module Admin
       @query = session[:admin_search_query].to_s
       @candidates = session[:admin_search_candidates] || []
 
-      @selected_place_ids = Array(params[:place_ids]).reject(&:blank?).map(&:to_s)
+      @selected_place_ids = Array(params[:place_ids]).compact_blank.map(&:to_s)
       if @selected_place_ids.empty?
-        flash.now[:alert] = '店舗を選択していません'
+        # I18n 未設定 2026/02/18
+        flash.now[:alert] = t('admin.search_restaurants.select_required')
         @saved_restaurants = []
         return render :index
       end

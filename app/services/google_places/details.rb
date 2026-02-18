@@ -8,16 +8,16 @@ module GooglePlaces
   class Details
     BASE_URL = 'https://places.googleapis.com/v1/places'
 
-    FIELD_MASK = [
-      'id',
-      'displayName',
-      'formattedAddress',
-      'location',
-      'internationalPhoneNumber',
-      'websiteUri',
-      'rating',
-      'userRatingCount',
-      'regularOpeningHours'
+    FIELD_MASK = %w[
+      id
+      displayName
+      formattedAddress
+      location
+      internationalPhoneNumber
+      websiteUri
+      rating
+      userRatingCount
+      regularOpeningHours
     ].join(',')
 
     def self.fetch(place_id, language: 'ja', region: 'JP')
