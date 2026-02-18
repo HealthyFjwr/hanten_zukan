@@ -8,5 +8,4 @@ class AdminUser < ApplicationRecord
          :recoverable,
          :rememberable,
          :validatable
-
 end
