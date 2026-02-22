@@ -9,15 +9,11 @@ unless Rails.env.test?
     AdminUser.find_or_create_by!(email: admin_email) do |a|
       a.password = admin_password
     end
-  else
-    puts "⚠️ ADMIN_USER / ADMIN_PASS が未設定やから AdminUser は作らへんで"
   end
 end
 
 # ダミーの店舗作成
 if Rails.env.development?
-  puts "🌱 Creating dummy restaurants..."
-
   Restaurant.where("place_id LIKE 'dummy_%'").delete_all
 
   100.times do
@@ -30,6 +26,9 @@ if Rails.env.development?
       phone_number: Faker::PhoneNumber.phone_number
     )
   end
+<<<<<<< HEAD
 
   puts "🌱 Done!"
+=======
+>>>>>>> 896717c (chore: remove old devise admin views and update seeds)
 end
