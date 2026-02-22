@@ -14,7 +14,9 @@ module Admin
     end
 
     def destroy
-
+      restaurant = Restaurant.find(params[:id])
+      restaurant.destroy!
+      redirect_to admin_restaurants_path, notice: '削除しました'
     end
 
     private
