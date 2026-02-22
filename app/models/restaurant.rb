@@ -4,6 +4,8 @@
 class Restaurant < ApplicationRecord
   validates :name, presence: true
   validates :place_id, presence: true, uniqueness: true
+  validates :latitude, presence: true
+  validates :longitude, presence: true
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[name address]
