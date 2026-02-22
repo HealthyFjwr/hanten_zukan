@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-
 module Admin
   class RestaurantsController < Admin::BaseController
     before_action :set_q, only: [:index]
@@ -16,7 +15,7 @@ module Admin
     def destroy
       restaurant = Restaurant.find(params[:id])
       restaurant.destroy!
-      redirect_to admin_restaurants_path, notice: '削除しました'
+      redirect_to admin_restaurants_path, notice: t('flash.deleted')
     end
 
     private
