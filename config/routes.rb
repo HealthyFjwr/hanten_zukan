@@ -7,14 +7,12 @@ Rails.application.routes.draw do
   # Devise admin root
   namespace :admin do
     root "dashboard#index"
-    resources :restaurants, only: [:index]
+    resources :restaurants, only: [:index, :show, :destroy]
     resources :search_restaurants, only: [:index, :create] do
       collection do
         get :search
       end
     end
-
-    # get 'search_restaurant/index'
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
