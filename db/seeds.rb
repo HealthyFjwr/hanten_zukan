@@ -26,9 +26,4 @@ if Rails.env.development?
       phone_number: Faker::PhoneNumber.phone_number
     )
   end
-<<<<<<< HEAD
-
-  puts "🌱 Done!"
-=======
->>>>>>> 896717c (chore: remove old devise admin views and update seeds)
 end
