@@ -21,8 +21,8 @@ if Rails.env.development?
       place_id: "dummy_#{SecureRandom.uuid}",
       name: "#{Faker::Name.last_name}飯店",
       address: Faker::Address.full_address,
-      latitude: Faker::Address.latitude,
-      longitude: Faker::Address.longitude,
+      latitude: rand(34.60..34.75).round(7),
+      longitude: rand(135.45..135.60).round(7),
       phone_number: Faker::PhoneNumber.phone_number
     )
   end
