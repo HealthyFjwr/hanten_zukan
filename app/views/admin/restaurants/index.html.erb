@@ -1,38 +1,73 @@
-<div>
-<h1>飲食店一覧</h1>
+<div class="w-full">
 
-<%= search_form_for @q, url: admin_restaurants_path, method: :get do |f| %>
-  <div style="display:flex; gap:8px; margin: 12px 0;">
-    <%= f.search_field :name_or_address_cont, placeholder: "店名 or 住所", style: "padding:8px; width: 320px;" %>
-    <%= f.submit "検索", style: "padding:8px 12px;" %>
+  <h1 class="text-2xl font-bold mb-4">飲食店一覧</h1>
+
+  <!-- 検索フォーム -->
+  <%= search_form_for @q, url: admin_restaurants_path, method: :get do |f| %>
+    <div class="flex gap-3 mb-6">
+      <%= f.search_field :name_or_address_cont,
+          placeholder: "店名 or 住所",
+          class: "w-80 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400" %>
+
+      <%= f.submit "検索",
+          class: "px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition" %>
+    </div>
+  <% end %>
+
+  <!-- テーブル -->
+  <div class="overflow-hidden bg-white shadow rounded-lg border border-gray-300">
+    <table class="w-full border-collapse">
+
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="px-4 py-3 border border-gray-300 text-left">店名</th>
+          <th class="px-4 py-3 border border-gray-300 text-left">住所</th>
+          <th class="px-4 py-3 border border-gray-300 text-left">登録日</th>
+          <th class="px-4 py-3 border border-gray-300 text-center"></th>
+          <th class="px-4 py-3 border border-gray-300 text-center"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @restaurants.each do |restaurant| %>
+          <tr class="hover:bg-gray-50">
+            <td class="px-4 py-3 border border-gray-300">
+              <%= restaurant.name %>
+            </td>
+
+            <td class="px-4 py-3 border border-gray-300">
+              <%= restaurant.address %>
+            </td>
+
+            <td class="px-4 py-3 border border-gray-300 text-gray-600">
+              <%= restaurant.created_at.strftime("%Y-%m-%d %H:%M") %>
+            </td>
+
+            <td class="px-4 py-3 border border-gray-300 text-center">
+              <%= link_to "詳細",
+                  admin_restaurant_path(restaurant),
+                  class: "text-blue-600 hover:underline" %>
+            </td>
+
+            <td class="px-4 py-3 border border-gray-300 text-center">
+              <%= link_to "削除",
+                  admin_restaurant_path(restaurant),
+                  data: { turbo_method: :delete, turbo_confirm: '削除しますか？' },
+                  class: "text-red-600 hover:underline" %>
+            </td>
+          </tr>
+        <% end %>
+
+        <% if @restaurants.empty? %>
+          <tr>
+            <td colspan="5" class="text-center py-6 text-gray-500">
+              未登録
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+
+    </table>
   </div>
-<% end %>
 
-<table border="1" cellpadding="8" style="border-collapse: collapse; width: 100%;">
-  <thead>
-    <tr>
-      <th>店名</th>
-      <th>住所</th>
-      <th>登録日</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @restaurants.each do |restaurant| %>
-      <tr>
-        <td><%= restaurant.name %></td>
-        <td><%= restaurant.address %></td>
-        <td><%= restaurant.created_at.strftime("%Y-%m-%d %H:%M") %></td>
-        <td><%= link_to "詳細", admin_restaurant_path(restaurant) %></td>
-        <td><%= link_to "削除", admin_restaurant_path(restaurant),
-            data: { turbo_method: :delete, turbo_confirm: '削除しますか？' } %></td>
-      </tr>
-    <% end %>
-
-    <% if @restaurants.empty? %>
-      <tr><td colspan="5">未登録</td></tr>
-    <% end %>
-  </tbody>
-</table>
+</div>

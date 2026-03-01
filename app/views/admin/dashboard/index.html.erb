@@ -1,32 +1,42 @@
-<div style="margin-bottom: 24px;">
-  <h2>登録店舗数</h2>
-  <p style="font-size: 24px; font-weight: bold;">
-    <%= @restaurant_count %> 件
-  </p>
-</div>
-
 <div>
-  <h2>最近追加された店舗</h2>
+  <h2 class="text-xl font-semibold mb-4">最近追加された店舗</h2>
 
   <% if @recent_restaurants.any? %>
-    <table border="1" cellpadding="8">
-      <thead>
-        <tr>
-          <th>店名</th>
-          <th>登録日時</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @recent_restaurants.each do |restaurant| %>
+    <div class="overflow-hidden bg-white shadow rounded-lg border border-gray-300 w-full">
+      <table class="w-full border-collapse">
+        <thead class="bg-gray-100">
           <tr>
-            <td><%= restaurant.name %></td>
-            <td><%= restaurant.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-gray-300">
+              店名
+            </th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-gray-300">
+              登録日時
+            </th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 border border-gray-300">
+              住所
+            </th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+
+        <tbody>
+          <% @recent_restaurants.each do |restaurant| %>
+            <tr class="hover:bg-gray-50">
+              <td class="px-6 py-4 border border-gray-300">
+                <%= restaurant.name %>
+              </td>
+              <td class="px-6 py-4 border border-gray-300 text-gray-600">
+                <%= restaurant.created_at.strftime("%Y-%m-%d %H:%M") %>
+              </td>
+              <td class="px-6 py-4 border border-gray-300">
+                <%= restaurant.address %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   <% else %>
-    <p style="color: #6b7280;">
+    <p class="text-gray-500">
       まだ店舗が登録されていません。
     </p>
   <% end %>
