@@ -2,7 +2,7 @@
 
 module Admin
   class SearchRestaurantsController < Admin::BaseController
-    before_action :set_db_stats, only: %i[index search create]
+    before_action :set_db_stats, only: %i[index search]
 
     def index
       @query = ''
@@ -39,10 +39,12 @@ module Admin
 
       @saved_restaurants = result.saved_restaurants
 
-      flash.now[:notice] = "保存完了: #{result.saved_count}件" if result.saved_count.positive?
-      flash.now[:alert] = "一部の取得/保存で失敗したで: #{result.errors.join(' / ')}" if result.failed?
+      set_db_stats
 
-      render :index
+      flash.now[:notice] = "保存完了: #{result.saved_count}件" if result.saved_count.positive?
+      flash.now[:alert] = "一部の取得/保存で失敗: #{result.errors.join(' / ')}" if result.failed?
+
+      redirect_to admin_search_restaurants_path
     end
 
     private
