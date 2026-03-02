@@ -11,9 +11,10 @@
 <% if defined?(@restaurant_count) %>
   <div style="margin-top:12px; padding:10px; border:1px solid #e5e7eb; border-radius:10px; background:#fff;">
     DB登録店舗数: <strong style="font-size:18px;"><%= @restaurant_count %></strong> 件
-    <% if defined?(@saved_restaurants) && @saved_restaurants.present? %>
+
+    <% if flash[:saved_count].present? %>
       <span style="margin-left:12px;">
-        今回保存: <strong style="font-size:18px;"><%= @saved_restaurants.size %></strong> 件
+        今回保存: <strong style="font-size:18px;"><%= flash[:saved_count] %></strong> 件
       </span>
     <% end %>
   </div>
