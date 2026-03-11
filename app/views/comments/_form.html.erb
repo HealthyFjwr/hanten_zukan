@@ -1,0 +1,18 @@
+<div class="mt-10" id="comment-form">
+  <div class="max-w-2xl mx-auto">
+    <%= form_with model: comment, url: restaurant_comments_path(restaurant) do |f| %>
+
+      <div class="mb-4">
+        <%= f.label :body, class: "block font-semibold mb-2" %>
+        <%= f.text_area :body,
+            class: "w-full border rounded-lg p-3",
+            rows: 4,
+            placeholder: Comment.human_attribute_name(:body) %>
+      </div>
+
+      <%= f.submit t('defaults.post'),
+          class: "bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" %>
+
+    <% end %>
+  </div>
+</div>
