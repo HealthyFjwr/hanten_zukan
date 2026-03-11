@@ -12,13 +12,17 @@
     </script>
   </head>
 
-  <body class="bg-gray-50 text-gray-900 leading-relaxed font-sans">
-    <%= render "shared/header" %>
+  <body class="bg-white text-gray-900">
+    <% #<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-accent-yellow shadow-md"> %>
+      <% #ヘッダ %>
+      <%= render "shared/header" %>
 
-    <main class="max-w-5xl mx-auto pt-28 px-6">
-      <%= yield %>
-    </main>
+      <main class="max-w-5xl mx-auto pt-28 px-6">
+        <%= yield %>
+      </main>
 
-    <%= render "shared/footer" %>
+      <%= render "shared/footer" %>
+    <% #</div> %>
   </body>
 </html>
+
