@@ -39,11 +39,11 @@ jobs:
       - name: Run RuboCop
         run: bundle exec rubocop
 
+      - name: Build Tailwind CSS
+        run: bin/rails tailwindcss:build
+
       - name: Set up DB
         run: bin/rails db:prepare
 
       - name: Run Rspec
         run: bundle exec rspec
-
-      - name: Hello CI
-        run: echo "CI started"
