@@ -1,2 +1,20 @@
-<%= render "shared/search_forms" %>
-<%= yield %>  <!-- 各ページの中身がここに入る -->
+<div
+  class="relative min-h-[80vh] bg-cover bg-center bg-no-repeat"
+  style="background-image: url('<%= asset_path("bg-picture_TopPage.png") %>');"
+>
+  <div class="absolute inset-0 bg-black/45"></div>
+
+  <div class="relative z-10 flex min-h-[80vh] flex-col items-center justify-center px-6 text-center text-white">
+    <h1 class="mb-4 text-4xl font-bold md:text-6xl">
+      「懐かしい味」を、その手に。
+    </h1>
+
+    <p class="mb-8 text-lg md:text-2xl">
+      町中華に特化した専門ガイド
+    </p>
+
+    <div class="w-full max-w-3xl">
+      <%= render "shared/search_forms" %>
+    </div>
+  </div>
+</div>
