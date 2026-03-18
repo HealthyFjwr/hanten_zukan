@@ -1,31 +1,38 @@
-<header class="flex items-center justify-between whitespace-nowrap border-b-4 border-red-500 bg-yellow-400 px-6 py-4 md:px-20 lg:px-40">
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b-4 border-red-500 bg-yellow-400 px-6 py-4 md:px-20 lg:px-40">
   <div class="flex items-center gap-3">
-    <h1 class="text-red-500 text-2xl md:text-3xl font-black leading-tight tracking-tighter italic">
-      <%= link_to "飯店図鑑", root_path, class: "hover:underline" %>
-    </h1>
+    <%= link_to root_path, class: "flex items-center gap-3" do %>
+      <div class="flex h-10 w-10 items-center justify-center rounded-full bg-red-500 text-yellow-400 shadow-md">
+        <span class="material-symbols-outlined text-2xl"></span>
+      </div>
+
+      <h1 class="text-red-500 text-2xl md:text-3xl font-black leading-tight tracking-tighter italic">
+        飯店図鑑
+      </h1>
+    <% end %>
   </div>
 
-  <div class="flex items-center gap-4">
-    <button class="hidden md:flex items-center gap-2 text-red-500 font-bold px-4 py-2 hover:bg-red-500/10 rounded-lg transition">
-      <span class="material-symbols-outlined"></span>
+  <div class="flex items-center gap-3 md:gap-4">
+    <%= link_to "#",
+        class: "hidden md:flex items-center gap-2 px-4 py-2 text-red-500 font-bold hover:bg-red-500/10 rounded-lg transition" do %>
+      <span class="material-symbols-outlined">map</span>
       <span>地図から探す</span>
-    </button>
+    <% end %>
 
     <% if user_signed_in? %>
-      <div class="flex items-center gap-4">
-        <span class="text-red-500 font-semibold">
-          ようこそ、<%= current_user.username %>さん
-        </span>
+      <%= link_to bookmarks_path,
+          class: "hidden md:flex items-center gap-2 px-4 py-2 text-red-500 font-bold hover:bg-red-500/10 rounded-lg transition" do %>
+        <%# <span class="material-symbols-outlined">favorite</span> %>
+        <span>♡</span>
+      <% end %>
 
-        <%= link_to "Logout",
-            destroy_user_session_path,
-            data: { turbo_method: :delete },
-            class: "flex items-center justify-center rounded-full h-11 px-6 bg-red-500 text-white text-sm font-bold shadow-lg hover:bg-red-600 transition" %>
-      </div>
+      <%= link_to "#",
+          class: "flex h-10 w-10 items-center justify-center rounded-full border-2 border-red-500 bg-white text-red-500 font-bold overflow-hidden hover:scale-105 transition" do %>
+        <span><%= current_user.username.first.upcase %></span>
+      <% end %>
     <% else %>
       <%= link_to "Login",
           new_user_session_path,
-          class: "flex min-w-[100px] cursor-pointer items-center justify-center rounded-full h-11 px-6 bg-red-500 text-white text-sm font-bold shadow-lg hover:bg-red-600 transition" %>
+          class: "flex min-w-[100px] items-center justify-center rounded-full h-10 px-6 bg-red-500 text-white text-sm font-bold shadow hover:bg-red-600 transition" %>
     <% end %>
   </div>
 </header>

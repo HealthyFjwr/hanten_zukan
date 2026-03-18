@@ -7,6 +7,9 @@ class Restaurant < ApplicationRecord
   validates :latitude, presence: true
   validates :longitude, presence: true
 
+  has_many :bookmarks, dependent: :destroy
+  has_many :bookmark_restaurants, through: :bookmarks, source: :board
+
   def self.ransackable_attributes(_auth_object = nil)
     %w[name address]
   end
