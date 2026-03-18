@@ -25,10 +25,45 @@
         <span>♡</span>
       <% end %>
 
-      <%= link_to "#",
-          class: "flex h-10 w-10 items-center justify-center rounded-full border-2 border-red-500 bg-white text-red-500 font-bold overflow-hidden hover:scale-105 transition" do %>
-        <span><%= current_user.username.first.upcase %></span>
-      <% end %>
+      <div class="relative"
+          data-controller="dropdown"
+          data-action="click@window->dropdown#hide">
+
+        <button
+          type="button"
+          data-action="click->dropdown#toggle"
+          class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-red-500 bg-white text-red-500 font-bold overflow-hidden hover:scale-105 transition"
+        >
+          <span><%= current_user.username.first.upcase %></span>
+        </button>
+
+        <div
+          class="absolute right-0 mt-3 w-56 overflow-hidden rounded-2xl border border-red-100 bg-white shadow-xl hidden"
+          data-dropdown-target="menu"
+        >
+          <div class="border-b border-gray-100 px-4 py-3">
+            <p class="text-xs font-semibold tracking-wide text-gray-400">ユーザー</p>
+            <p class="mt-1 text-sm font-bold text-gray-800"><%= current_user.username %></p>
+          </div>
+
+          <div class="py-2">
+            <%= link_to bookmarks_path,
+                class: "flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-700 hover:bg-red-50 hover:text-red-500 transition" do %>
+              <span class="text-base">♡</span>
+              <span>お気に入り</span>
+            <% end %>
+          </div>
+
+          <div class="border-t border-gray-100 py-2">
+            <%= link_to destroy_user_session_path,
+                data: { turbo_method: :delete },
+                class: "block px-4 py-3 text-sm font-semibold text-red-500 hover:bg-red-50 transition" do %>
+              Logout
+            <% end %>
+          </div>
+        </div>
+      </div>
+
     <% else %>
       <%= link_to "Login",
           new_user_session_path,
