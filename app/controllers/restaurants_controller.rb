@@ -5,6 +5,7 @@ class RestaurantsController < ApplicationController
 
   def index
     @restaurants = @q.result(distinct: true).order(:name)
+    @bookmarked_restaurant_ids = current_user.bookmarks.pluck(:restaurant_id) if user_signed_in?
   end
 
   def show

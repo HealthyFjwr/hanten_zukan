@@ -1,0 +1,54 @@
+<div class="px-8 py-20">
+  <div class="mx-auto max-w-5xl">
+    <div class="mb-8">
+      <h1 class="text-3xl font-black tracking-tight text-gray-900">お気に入り一覧</h1>
+      <p class="mt-2 text-sm text-gray-600">
+        保存した町中華のお店をまとめて確認できます。
+      </p>
+    </div>
+
+    <% if @bookmarked_restaurants.any? %>
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <% @bookmarked_restaurants.each do |restaurant| %>
+          <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:shadow-md">
+            <div class="h-48 bg-gray-100">
+              <% if restaurant.respond_to?(:image) && restaurant.image.present? %>
+                <%= image_tag restaurant.image, class: "h-full w-full object-cover" %>
+              <% else %>
+                <div class="flex h-full items-center justify-center text-sm text-gray-400">
+                  画像はまだありません
+                </div>
+              <% end %>
+            </div>
+
+            <div class="p-5">
+              <h2 class="text-xl font-bold text-gray-900">
+                <%= restaurant.name %>
+              </h2>
+
+              <p class="mt-2 text-sm leading-relaxed text-gray-600">
+                <%= restaurant.address.presence || "住所情報は未登録です" %>
+              </p>
+
+              <div class="mt-4">
+                <%= link_to "詳細を見る", restaurant_path(restaurant),
+                    class: "inline-flex items-center rounded-lg bg-red-500 px-4 py-2 text-sm font-bold text-white transition hover:bg-red-600" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="rounded-2xl border border-dashed border-gray-300 bg-gray-50 px-6 py-12 text-center">
+        <p class="text-lg font-bold text-gray-700">お気に入りはまだありません</p>
+        <p class="mt-2 text-sm text-gray-500">
+          気になるお店を見つけたら、お気に入り登録してみてください。
+        </p>
+        <div class="mt-6">
+          <%= link_to "お店を探す", restaurants_path,
+              class: "inline-flex items-center rounded-lg bg-yellow-400 px-4 py-2 text-sm font-bold text-red-500 transition hover:bg-yellow-300" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
