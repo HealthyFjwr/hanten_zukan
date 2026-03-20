@@ -1,0 +1,15 @@
+<div class='ms-auto' id="<%= "bookmark-button-for-restaurant-#{restaurant.id}" %>">
+  <% if user_signed_in? %>
+    <% if current_user.bookmark?(restaurant) %>
+      <%= link_to restaurant_bookmark_path(restaurant),
+          data: { turbo_method: :delete, turbo_stream: true } do %>
+        <i class="bi bi-star-fill"></i>
+      <% end %>
+    <% else %>
+      <%= link_to restaurant_bookmark_path(restaurant),
+          data: { turbo_method: :post, turbo_stream: true } do %>
+        <i class="bi bi-star"></i>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
