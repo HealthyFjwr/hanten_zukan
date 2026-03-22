@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+
+  # letter opener webのルーティング設定
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+
+  # 本番用
   devise_for :admin_users, path: "admin"
   devise_for :users, controllers: {
     registrations: "users/registrations"
