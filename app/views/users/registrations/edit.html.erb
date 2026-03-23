@@ -1,0 +1,21 @@
+<div class="max-w-md mx-auto my-20 px-6">
+  <h2 class="text-2xl font-black text-red-500 italic mb-8">プロフィール編集</h2>
+
+  <%= form_with model: resource, url: user_registration_path, method: :patch do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div class="mb-6">
+      <%= f.label :username, "ユーザー名", class: "block text-sm font-bold text-gray-700 mb-2" %>
+      <%= f.text_field :username, class: "w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-red-500 transition" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.submit "更新する", class: "w-full bg-red-500 text-white font-bold py-3 rounded-lg hover:bg-red-600 transition cursor-pointer" %>
+    </div>
+
+    <%# パスワード変更リンク %>
+    <div class="text-center">
+      <%= link_to "パスワードを変更する", new_user_password_path, class: "text-red-500 underline text-sm" %>
+    </div>
+  <% end %>
+</div>
