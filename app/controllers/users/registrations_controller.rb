@@ -65,9 +65,25 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super(resource)
   # end
 
+  def edit_password
+    self.resource = current_user
+  end
+
+  def update_password
+    if current_user.update_with_password(password_update_params)
+      redirect_to root_path, notice: "パスワードを更新しました"
+    else
+      render :edit_password, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def account_update_params
     params.require(:user).permit(:username)
+  end
+
+  def password_update_params
+    params.require(:user).permit(:current_password, :password, :password_confirmation)
   end
 end

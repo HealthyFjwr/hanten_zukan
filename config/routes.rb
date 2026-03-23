@@ -31,7 +31,12 @@ Rails.application.routes.draw do
   end
 
   scope :user do
-      resources :bookmarks, only: %i[index]
-      # get "profile", to: "users#show"
+    resources :bookmarks, only: %i[index]
+    # get "profile", to: "users#show"
+  end
+
+  devise_scope :user do
+    get "password/edit", to: "users/registrations#edit_password", as: :edit_password_setting
+    patch "password", to: "users/registrations#update_password", as: :update_password_setting
   end
 end
