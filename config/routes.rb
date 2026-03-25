@@ -28,6 +28,9 @@ Rails.application.routes.draw do
   resources :restaurants do
     resources :comments, only: %i[create update destroy]
     resource :bookmark, only: %i[create destroy]
+    collection do
+      get :autocomplete
+    end
   end
 
   scope :user do

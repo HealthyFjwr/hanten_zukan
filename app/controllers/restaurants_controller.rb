@@ -12,13 +12,19 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.find(params[:id])
   end
 
+  def autocomplete
+    @suggest_keyword = Restaurant.suggest(params[:keyword])
+    render json: @suggest_keyword
+  end
+
   private
 
   def set_q
     @q = Restaurant.ransack(params[:q])
   end
 
-  def restaurant_params
-    params.require(:restaurant).permit(:name, :address, :latitude, :longitude, :phone_number)
-  end
+  # update, newアクション追加時に使用
+  # def restaurant_params
+  #   params.require(:restaurant).permit(:name, :address, :latitude, :longitude, :phone_number)
+  # end
 end
