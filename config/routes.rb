@@ -13,6 +13,9 @@ Rails.application.routes.draw do
 
   root "static_pages#top"
 
+  get "/terms", to: "static_pages#terms", as: :terms
+  get "/privacy", to: "static_pages#privacy", as: :privacy
+
   namespace :admin do
     root "dashboard#index"
     resources :restaurants, only: %i[index show destroy]
