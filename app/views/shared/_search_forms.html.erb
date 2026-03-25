@@ -1,10 +1,17 @@
-<div class="search-form-container">
+<div class="search-form-container" data-controller="autocomplete">
   <%= search_form_for @q, url: restaurants_path, method: :get, html: { class: "flex flex-col sm:flex-row gap-4" } do |f| %>
-    <div class="flex-1">
+    <div class="flex-1 relative">
       <%= f.search_field :name_or_address_cont,
           placeholder: "店名や住所で検索",
-          class: "w-full bg-white border border-gray-300 text-slate-700 placeholder-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 outline-none transition"
+          class: "w-full bg-white border border-gray-300 text-slate-700 placeholder-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 outline-none transition",
+          data: {
+            autocomplete_target: "input",
+            action: "input->autocomplete#search"
+          }
       %>
+      <ul data-autocomplete-target="list"
+          class="absolute z-10 bg-white border border-gray-300 w-full hidden text-slate-700 list-none text-left">
+      </ul>
     </div>
     <div class="flex items-end">
       <%= f.submit "検索",
