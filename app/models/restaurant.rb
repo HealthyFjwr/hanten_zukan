@@ -19,9 +19,9 @@ class Restaurant < ApplicationRecord
   end
 
   def self.suggest(keyword)
-    front = select(:id, :name).where("name LIKE ?", "#{keyword}%")
+    front = select(:id, :name).where('name LIKE ?', "#{keyword}%")
     partial = select(:id, :name)
-              .where("name LIKE ?", "%#{keyword}%")
+              .where('name LIKE ?', "%#{keyword}%")
               .where.not(id: front.ids)
               .limit(10)
     front + partial
