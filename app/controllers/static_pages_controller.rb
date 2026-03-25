@@ -4,6 +4,8 @@ class StaticPagesController < ApplicationController
   before_action :set_q, only: [:top]
   def top; end
 
+  def terms; end
+
   private
 
   def set_q
