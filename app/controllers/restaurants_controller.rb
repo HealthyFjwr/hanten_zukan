@@ -4,7 +4,7 @@ class RestaurantsController < ApplicationController
   before_action :set_q, only: [:index]
 
   def index
-    @restaurants = @q.result(distinct: true).order(:name)
+    @restaurants = @q.result(distinct: true).order(:name).page(params[:page])
     @bookmarked_restaurant_ids = current_user.bookmarks.pluck(:restaurant_id) if user_signed_in?
   end
 

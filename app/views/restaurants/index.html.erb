@@ -22,27 +22,31 @@
     <h1 class="text-2xl font-bold mb-4">町中華一覧</h1>
 
     <% if @restaurants.any? %>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="flex flex-col gap-3">
         <% @restaurants.each do |restaurant| %>
-          <%# カードとボタンをdivでまとめる %>
-          <div class="border rounded-lg p-4 shadow hover:shadow-lg transition bg-white relative">
-            <%# absoluteで右上に配置 %>
-            <div class="absolute top-2 right-2">
-              <%= render 'bookmark_buttons', restaurant: restaurant %>
-            </div>
-            <%= link_to restaurant_path(restaurant), class: "block" do %>
-              <h2 class="text-xl font-semibold mb-1"><%= restaurant.name %></h2>
-              <p class="text-gray-600"><%= restaurant.address.presence || "住所情報なし" %></p>
+          <div class="border rounded-lg p-4 bg-white hover:shadow transition flex items-center justify-between relative">
+            <%# 左側：店舗情報 %>
+            <%= link_to restaurant_path(restaurant), class: "flex flex-col gap-1 flex-1" do %>
+              <h2 class="text-base font-semibold"><%= restaurant.name %></h2>
+              <p class="text-sm text-gray-500"><%= restaurant.address.presence || "住所情報なし" %></p>
               <% if restaurant.phone_number.present? %>
-                <p class="text-gray-600">📞 <%= restaurant.phone_number %></p>
-              <% end %>
-              <% if restaurant.website.present? %>
-                <p class="text-blue-500 underline">公式サイト</p>
+                <p class="text-sm text-gray-500">📞 <%= restaurant.phone_number %></p>
               <% end %>
             <% end %>
-            <%# ボタンはlink_toの外、divの中 %>
+
+            <%# 右側：公式サイト＋ブックマーク %>
+            <div class="flex items-center gap-3 ml-4 shrink-0">
+              <% if restaurant.website.present? %>
+                <a href="<%= restaurant.website %>" class="text-sm text-blue-500 underline" target="_blank">公式サイト</a>
+              <% end %>
+              <%= render 'bookmark_buttons', restaurant: restaurant %>
+            </div>
+
           </div>
         <% end %>
+      </div>
+      <div class="mt-8 flex justify-center">
+          <%= paginate @restaurants %>
       </div>
     <% else %>
       <p class="text-gray-600 mt-4">該当する店舗は見つかりませんでした。</p>

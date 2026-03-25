@@ -89,3 +89,4 @@ gem "tailwindcss-rails"
 # 認証機能
 gem 'devise'
 
+gem 'kaminari'
