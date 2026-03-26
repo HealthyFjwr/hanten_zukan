@@ -36,7 +36,5 @@ module App
     config.generators do |g|
       g.orm :active_record, primary_key_type: :uuid
     end
-
-    config.hosts << 'hanten-zukan.com'
   end
 end
