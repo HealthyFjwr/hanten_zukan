@@ -14,6 +14,7 @@ end
 
 # ダミーの店舗作成
 if Rails.env.development?
+  Bookmark.delete_all
   Restaurant.where("place_id LIKE 'dummy_%'").delete_all
 
   100.times do
@@ -23,7 +24,19 @@ if Rails.env.development?
       address: Faker::Address.full_address,
       latitude: rand(34.60..34.75).round(7),
       longitude: rand(135.45..135.60).round(7),
-      phone_number: Faker::PhoneNumber.phone_number
+      phone_number: Faker::PhoneNumber.phone_number,
+      website: Faker::Internet.url,
+      opening_hours: {
+        "weekdayDescriptions" => [
+          "月曜日: 11:00～14:30、17:00～21:00",
+          "火曜日: 11:00～14:30、17:00～21:00",
+          "水曜日: 定休日",
+          "木曜日: 11:00～21:00",
+          "金曜日: 11:00～21:00",
+          "土曜日: 11:00～21:00",
+          "日曜日: 11:00～20:00"
+        ]
+      }
     )
   end
 end

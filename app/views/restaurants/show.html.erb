@@ -1,38 +1,71 @@
-<div class="container mx-auto p-6">
-  <div class="mt-6">
-    <%= link_to "←一覧に戻る", restaurants_path, class: "text-red-500 hover:underline" %>
+<div class="container mx-auto p-6 max-w-2xl">
+  <%# 戻るリンク %>
+  <div class="mt-4 mb-6">
+    <%= link_to "← 一覧に戻る", restaurants_path, class: "text-sm text-red-800 hover:underline" %>
   </div>
 
-  <div class="flex items-center mb-4">
-    <h1 class="text-3xl font-bold"><%= @restaurant.name %></h1>
-    <%= render 'bookmark_buttons', restaurant: @restaurant %>
-  </div>
-  <p class="text-gray-700 mb-2"><%= @restaurant.address.presence || "住所情報なし" %></p>
+  <%# ヒーローカード %>
+  <div class="relative bg-red-900 rounded-2xl p-7 mb-5 overflow-hidden">
+    <div class="absolute -right-5 -top-5 w-32 h-32 border-[12px] border-white/10 rounded-full"></div>
+    <div class="absolute right-8 top-8 w-16 h-16 border-8 border-white/10 rounded-full"></div>
 
-  <div id="map" style="height: 400px;"></div>
+    <p class="text-xs tracking-widest text-white/50 mb-2">街中華</p>
+    <h1 class="text-2xl font-bold text-white mb-3" style="font-family: 'Noto Serif JP', serif;">
+      <%= @restaurant.name %>
+    </h1>
+    <p class="text-sm text-white/70 flex items-center gap-1">
+      📍 <%= @restaurant.address.presence || "住所情報なし" %>
+    </p>
+
+    <div class="absolute top-5 right-5">
+      <%= render 'bookmark_buttons', restaurant: @restaurant %>
+    </div>
+  </div>
+
+  <%# マップ %>
+  <div class="rounded-2xl overflow-hidden mb-5" style="height: 200px;">
+    <div id="map" style="height: 100%;"></div>
+  </div>
   <script>
     function initMap() {
-      const position = {
-        lat: <%= @restaurant.latitude %>,
-        lng: <%= @restaurant.longitude %>
-      };
-
-      const map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 16,
-        center: position,
-      });
-
-      new google.maps.Marker({
-        position: position,
-        map: map,
-      });
+      const position = { lat: <%= @restaurant.latitude %>, lng: <%= @restaurant.longitude %> };
+      const map = new google.maps.Map(document.getElementById("map"), { zoom: 16, center: position });
+      new google.maps.Marker({ position: position, map: map });
     }
+
+    // ここを追加
+    document.addEventListener("turbo:load", function() {
+      if (document.getElementById("map") && typeof google !== 'undefined') {
+        initMap();
+      }
+    });
   </script>
 
-  <% if @restaurant.phone_number.present? %>
-    <p class="mb-2">📞 <%= @restaurant.phone_number %></p>
-  <% end %>
-  <% if @restaurant.website.present? %>
-    <p><%= link_to "公式サイトを見る", @restaurant.website, target: "_blank", class: "text-blue-500 underline" %></p>
+  <%# 電話・サイト %>
+  <div class="grid grid-cols-2 gap-3 mb-5">
+    <% if @restaurant.phone_number.present? %>
+      <div class="bg-white border border-gray-100 rounded-xl p-4">
+        <p class="text-xs tracking-widest text-gray-400 mb-1">電話番号</p>
+        <p class="text-sm font-medium">📞 <%= @restaurant.phone_number %></p>
+      </div>
+    <% end %>
+
+    <% if @restaurant.website.present? %>
+      <div class="bg-white border border-gray-100 rounded-xl p-4">
+        <p class="text-xs tracking-widest text-gray-400 mb-1">公式サイト</p>
+        <%= link_to "サイトを見る →", @restaurant.website, target: "_blank",
+            class: "text-sm font-medium text-red-800 hover:underline" %>
+      </div>
+    <% end %>
+  </div>
+
+  <%# 営業時間 %>
+  <% if @restaurant.opening_hours["weekdayDescriptions"].present? %>
+    <div class="bg-white border border-gray-100 rounded-xl p-4">
+      <p class="text-xs tracking-widest text-gray-400 mb-3">営業時間</p>
+      <% @restaurant.opening_hours["weekdayDescriptions"].each do |line| %>
+        <p class="text-sm py-2 border-b border-gray-100 last:border-none"><%= line %></p>
+      <% end %>
+    </div>
   <% end %>
 </div>
