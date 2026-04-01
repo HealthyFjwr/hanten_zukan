@@ -2,8 +2,7 @@
 <div class="flex flex-col md:flex-row h-auto md:h-[calc(100vh-8rem)]">
 
   <%# サイドバー %>
-  <div class="w-full md:w-1/4 bg-gray-50 border-b md:border-b-0 md:border-r border-gray-200 p-6 overflow-y-auto">
-    <%= link_to "← Top", root_path, class: "text-gray-400 hover:text-red-500 text-sm block mb-4" %>
+  <div class="w-full md:w-1/4 bg-gray-50 border-b md:border-b-0 md:border-r border-white p-6 overflow-y-auto">
     <h2 class="text-lg font-semibold mb-4 text-gray-700">検索</h2>
 
     <%= search_form_for @q, url: restaurants_path, method: :get, html: { class: "space-y-4" } do |f| %>
@@ -25,7 +24,6 @@
 
     <%# タイトルエリア %>
     <div class="mb-6">
-      <p class="text-xs text-gray-400 mb-1">全国の街に、うまい中華がある。</p>
       <h1 class="text-2xl font-bold text-gray-800">町中華一覧</h1>
     </div>
 
