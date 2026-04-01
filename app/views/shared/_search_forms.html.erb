@@ -1,5 +1,5 @@
 <div class="search-form-container" data-controller="autocomplete">
-  <%= search_form_for @q, url: restaurants_path, method: :get, html: { class: "flex flex-col sm:flex-row gap-4" } do |f| %>
+  <%= search_form_for @q, url: restaurants_path, method: :get, html: { class: "flex flex-row gap-2" } do |f| %>
     <div class="flex-1 relative">
       <%= f.search_field :name_or_address_cont,
           placeholder: "店名や住所で検索",
