@@ -89,4 +89,8 @@ gem "tailwindcss-rails"
 # 認証機能
 gem 'devise'
 
+# ページネーション
 gem 'kaminari'
+
+# パンクズ機能
+gem 'gretel'

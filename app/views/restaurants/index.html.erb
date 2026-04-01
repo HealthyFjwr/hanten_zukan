@@ -1,43 +1,50 @@
-<div class="flex h-[calc(100vh-8rem)]">
-  <div class="w-full md:w-1/4 bg-gray-50 border-r p-6 overflow-y-auto">
-    <%= link_to "← Top", root_path, class: "text-red-500 hover:underline block mt-1" %>
-    <h2 class="text-xl font-bold mb-4">検索</h2>
+<% breadcrumb :restaurants %>
+<div class="flex flex-col md:flex-row h-auto md:h-[calc(100vh-8rem)]">
+
+  <%# サイドバー %>
+  <div class="w-full md:w-1/4 bg-gray-50 border-b md:border-b-0 md:border-r border-white p-6 overflow-y-auto">
+    <h2 class="text-lg font-semibold mb-4 text-gray-700">検索</h2>
 
     <%= search_form_for @q, url: restaurants_path, method: :get, html: { class: "space-y-4" } do |f| %>
       <div>
-        <%= f.label :name_or_address_cont, "店名・住所", class: "block text-gray-700 mb-2 font-medium" %>
+        <%= f.label :name_or_address_cont, "店名・住所", class: "block text-sm text-gray-500 mb-1" %>
         <%= f.search_field :name_or_address_cont,
             placeholder: "例：大阪市中央区",
-            class: "w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none" %>
+            class: "w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-red-300 focus:outline-none bg-white" %>
       </div>
-
       <div>
         <%= f.submit "検索",
-            class: "w-full bg-red-500 text-white font-semibold py-2 rounded-lg hover:bg-red-600 transition" %>
+            class: "w-full bg-red-500 text-white text-sm font-semibold py-2 rounded-lg hover:bg-red-600 transition cursor-pointer" %>
       </div>
     <% end %>
   </div>
 
+  <%# メインコンテンツ %>
   <div class="flex-1 overflow-y-auto p-6 bg-white">
-    <h1 class="text-2xl font-bold mb-4">町中華一覧</h1>
+
+    <%# タイトルエリア %>
+    <div class="mb-6">
+      <h1 class="text-2xl font-bold text-gray-800">町中華一覧</h1>
+    </div>
 
     <% if @restaurants.any? %>
       <div class="flex flex-col gap-3">
         <% @restaurants.each do |restaurant| %>
-          <div class="border rounded-lg p-4 bg-white hover:shadow transition flex items-center justify-between relative">
+          <div class="border border-gray-100 rounded-xl p-4 bg-white hover:bg-gray-50 transition flex items-center justify-between">
+
             <%# 左側：店舗情報 %>
             <%= link_to restaurant_path(restaurant), class: "flex flex-col gap-1 flex-1" do %>
-              <h2 class="text-base font-semibold"><%= restaurant.name %></h2>
-              <p class="text-sm text-gray-500"><%= restaurant.address.presence || "住所情報なし" %></p>
+              <h2 class="text-sm font-semibold text-gray-800"><%= restaurant.name %></h2>
+              <p class="text-xs text-gray-400"><%= restaurant.address.presence || "住所情報なし" %></p>
               <% if restaurant.phone_number.present? %>
-                <p class="text-sm text-gray-500">📞 <%= restaurant.phone_number %></p>
+                <p class="text-xs text-gray-400">📞 <%= restaurant.phone_number %></p>
               <% end %>
             <% end %>
 
             <%# 右側：公式サイト＋ブックマーク %>
             <div class="flex items-center gap-3 ml-4 shrink-0">
               <% if restaurant.website.present? %>
-                <a href="<%= restaurant.website %>" class="text-sm text-blue-500 underline" target="_blank">公式サイト</a>
+                <a href="<%= restaurant.website %>" class="text-xs text-blue-400 underline" target="_blank">公式サイト</a>
               <% end %>
               <%= render 'bookmark_buttons', restaurant: restaurant %>
             </div>
@@ -45,11 +52,13 @@
           </div>
         <% end %>
       </div>
+
       <div class="mt-8 flex justify-center">
-          <%= paginate @restaurants %>
+        <%= paginate @restaurants %>
       </div>
+
     <% else %>
-      <p class="text-gray-600 mt-4">該当する店舗は見つかりませんでした。</p>
+      <p class="text-sm text-gray-400 mt-4">該当する店舗は見つかりませんでした。</p>
     <% end %>
   </div>
 </div>
