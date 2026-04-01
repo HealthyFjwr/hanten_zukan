@@ -70,6 +70,7 @@ module Users
     end
 
     def update_password
+      self.resource = current_user
       if current_user.update_with_password(password_update_params)
         redirect_to root_path
       else
