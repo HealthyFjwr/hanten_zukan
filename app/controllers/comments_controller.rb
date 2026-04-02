@@ -1,21 +1,23 @@
+# frozen_string_literal: true
+
 class CommentsController < ApplicationController
-before_action :set_restaurant, only: %i[create update destroy]
-before_action :set_comment, only: %i[update destroy]
+  before_action :set_restaurant, only: %i[create update destroy]
+  before_action :set_comment, only: %i[update destroy]
 
   def create
     @comment = Comment.new(restaurant: @restaurant, user: current_user, body: comment_params[:body])
     if @comment.save
-      redirect_page(notice: "コメントを投稿しました")
+      redirect_page(notice: 'コメントを投稿しました')
     else
-      render "restaurants/show"
+      render 'restaurants/show'
     end
   end
 
   def update
     if @comment.update(body: comment_params[:body])
-      redirect_page(notice: "更新しました")
+      redirect_page(notice: '更新しました')
     else
-      render "restaurants/show"
+      render 'restaurants/show'
     end
   end
 
@@ -31,7 +33,7 @@ before_action :set_comment, only: %i[update destroy]
   end
 
   def set_restaurant
-  @restaurant = Restaurant.find(params[:restaurant_id])
+    @restaurant = Restaurant.find(params[:restaurant_id])
   end
 
   def redirect_page(notice: nil)
