@@ -1,3 +1,29 @@
 ja:
   flash:
     deleted: "削除しました"
+    comments:
+      created: "コメントを投稿しました"
+      updated: "コメントを更新しました"
+    users:
+      updated: "プロフィールを更新しました"
+      password_updated: "パスワードを変更しました"
+
+  errors:
+    messages:
+      blank: "を入力してください"
+      too_short: "は%{count}文字以上で入力してください"
+      too_long: "は%{count}文字以内で入力してください"
+      taken: "はすでに使用されています"
+      invalid: "は不正な値です"
+      empty: "を入力してください"
+      confirmation: "と%{attribute}の入力が一致しません"
+      wrong_length: "は%{count}文字で入力してください"
+
+  activerecord:
+    errors:
+      messages:
+        blank: "を入力してください"
+        too_short: "は%{count}文字以上で入力してください"
+        too_long: "は%{count}文字以内で入力してください"
+        taken: "はすでに使用されています"
+        invalid: "は不正な値です"

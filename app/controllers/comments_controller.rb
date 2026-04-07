@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(restaurant: @restaurant, user: current_user, body: comment_params[:body])
     if @comment.save
-      redirect_page(notice: 'コメントを投稿しました')
+      redirect_page(notice: t('flash.comments.created'))
     else
       render 'restaurants/show'
     end
@@ -15,7 +15,7 @@ class CommentsController < ApplicationController
 
   def update
     if @comment.update(body: comment_params[:body])
-      redirect_page(notice: '更新しました')
+      redirect_page(notice: t('flash.comments.updated'))
     else
       render 'restaurants/show'
     end

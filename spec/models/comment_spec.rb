@@ -13,7 +13,7 @@ RSpec.describe Comment, type: :model do
       comment = build(:comment, body: nil)
 
       expect(comment).to be_invalid
-      expect(comment.errors[:body]).to include("can't be blank")
+      expect(comment.errors[:body]).to include('を入力してください')
     end
 
     it 'userがなければ無効である' do
