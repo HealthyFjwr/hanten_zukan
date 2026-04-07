@@ -1,3 +1,9 @@
 ja:
   flash:
     deleted: "削除しました"
+    comments:
+      created: "コメントを投稿しました"
+      updated: "コメントを更新しました"
+    users:
+      updated: "プロフィールを更新しました"
+      password_updated: "パスワードを変更しました"

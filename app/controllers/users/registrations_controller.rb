@@ -23,7 +23,7 @@ module Users
     # PUT /resource
     def update
       if current_user.update_without_password(account_update_params)
-        redirect_to root_path
+        redirect_to root_path, notice: t('flash.users.updated')
       else
         render :edit, status: :unprocessable_content
       end
@@ -72,7 +72,7 @@ module Users
     def update_password
       self.resource = current_user
       if current_user.update_with_password(password_update_params)
-        redirect_to root_path
+        redirect_to root_path, notice: t('flash.users.password_updated')
       else
         render :edit_password, status: :unprocessable_content
       end
