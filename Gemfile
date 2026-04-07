@@ -89,6 +89,10 @@ gem "tailwindcss-rails"
 # 認証機能
 gem 'devise'
 
+# Google OAuth認証
+gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection'
+
 # ページネーション
 gem 'kaminari'
 

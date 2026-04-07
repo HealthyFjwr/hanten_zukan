@@ -8,7 +8,8 @@ Rails.application.routes.draw do
   # 本番用
   devise_for :admin_users, path: "admin"
   devise_for :users, controllers: {
-    registrations: "users/registrations"
+    registrations: "users/registrations",
+    omniauth_callbacks: "users/omniauth_callbacks"
   }
 
   root "static_pages#top"
