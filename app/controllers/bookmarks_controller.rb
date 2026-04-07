@@ -9,6 +9,7 @@ class BookmarksController < ApplicationController
 
   def create
     current_user.bookmark(@restaurant)
+    @bookmarked_restaurant_ids = [@restaurant.id]
 
     respond_to do |format|
       format.turbo_stream
@@ -17,6 +18,7 @@ class BookmarksController < ApplicationController
 
   def destroy
     current_user.unbookmark(@restaurant)
+    @bookmarked_restaurant_ids = []
 
     respond_to do |format|
       format.turbo_stream

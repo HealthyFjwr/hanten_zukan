@@ -10,6 +10,7 @@ class RestaurantsController < ApplicationController
 
   def show
     @restaurant = Restaurant.find(params[:id])
+    @bookmarked_restaurant_ids = current_user.bookmarks.pluck(:restaurant_id) if user_signed_in?
   end
 
   def autocomplete
