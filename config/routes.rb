@@ -25,7 +25,15 @@ Rails.application.routes.draw do
         get :search
       end
     end
+    resources :restaurant_requests, only: %i[index destroy] do
+      member do
+        patch :approve
+        patch :reject
+      end
+    end
   end
+
+  resources :restaurant_requests, only: %i[new create]
 
   get "up" => "rails/health#show", as: :rails_health_check
 

@@ -1,0 +1,52 @@
+<div class="w-full">
+
+  <h1 class="text-2xl font-bold mb-6">店舗追加申請一覧</h1>
+
+  <!-- タブ切り替え -->
+  <div class="flex gap-2 mb-6 border-b border-gray-300">
+    <button onclick="showTab('pending')" id="tab-pending"
+            class="px-4 py-2 text-sm font-medium border-b-2 border-red-500 text-red-600">
+      未対応 (<%= @pending_requests.size %>)
+    </button>
+    <button onclick="showTab('approved')" id="tab-approved"
+            class="px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700">
+      承認済み (<%= @approved_requests.size %>)
+    </button>
+    <button onclick="showTab('rejected')" id="tab-rejected"
+            class="px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700">
+      却下済み (<%= @rejected_requests.size %>)
+    </button>
+  </div>
+
+  <!-- 未対応 -->
+  <div id="panel-pending">
+    <%= render 'request_table', requests: @pending_requests, show_actions: true %>
+  </div>
+
+  <!-- 承認済み -->
+  <div id="panel-approved" class="hidden">
+    <%= render 'request_table', requests: @approved_requests, show_actions: false %>
+  </div>
+
+  <!-- 却下済み -->
+  <div id="panel-rejected" class="hidden">
+    <%= render 'request_table', requests: @rejected_requests, show_actions: false %>
+  </div>
+
+</div>
+
+<script>
+  function showTab(name) {
+    ['pending', 'approved', 'rejected'].forEach(function(tab) {
+      document.getElementById('panel-' + tab).classList.add('hidden');
+      const btn = document.getElementById('tab-' + tab);
+      btn.classList.remove('border-red-500', 'text-red-600');
+      btn.classList.add('border-transparent', 'text-gray-500');
+    });
+
+    document.getElementById('panel-' + name).classList.remove('hidden');
+    const activeBtn = document.getElementById('tab-' + name);
+    activeBtn.classList.remove('border-transparent', 'text-gray-500');
+    activeBtn.classList.add('border-red-500', 'text-red-600');
+  }
+</script>

@@ -1,0 +1,39 @@
+<div class="max-w-lg mx-auto mt-10 px-4">
+  <h1 class="text-2xl font-bold mb-6">店舗追加を申請する</h1>
+
+  <%= form_with model: @restaurant_request, local: true do |f| %>
+    <% if @restaurant_request.errors.any? %>
+      <div class="mb-4 p-4 bg-red-50 border border-red-300 rounded-lg">
+        <% @restaurant_request.errors.full_messages.each do |msg| %>
+          <p class="text-red-600 text-sm"><%= msg %></p>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="flex flex-col gap-4">
+      <div>
+        <%= f.label :prefecture, "都道府県", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= f.text_field :prefecture,
+            placeholder: "例）東京都",
+            class: "w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400" %>
+      </div>
+
+      <div>
+        <%= f.label :city, "市町村", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= f.text_field :city,
+            placeholder: "例）新宿区",
+            class: "w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400" %>
+      </div>
+
+      <div>
+        <%= f.label :name, "店名", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= f.text_field :name,
+            placeholder: "例）〇〇ラーメン",
+            class: "w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400" %>
+      </div>
+
+      <%= f.submit "申請する",
+          class: "w-full py-2 bg-red-500 text-white font-medium rounded-md hover:bg-red-600 transition cursor-pointer" %>
+    </div>
+  <% end %>
+</div>

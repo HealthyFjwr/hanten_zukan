@@ -3,18 +3,16 @@
 module Admin
   class RestaurantsController < Admin::BaseController
     before_action :set_q, only: [:index]
+    before_action :set_restaurant, only: %i[show destroy]
 
     def index
       @restaurants = @q.result(distinct: true).order(created_at: :desc)
     end
 
-    def show
-      @restaurant = Restaurant.find(params[:id])
-    end
+    def show; end
 
     def destroy
-      restaurant = Restaurant.find(params[:id])
-      restaurant.destroy!
+      @restaurant.destroy!
       redirect_to admin_restaurants_path, notice: t('flash.deleted')
     end
 
@@ -24,8 +22,8 @@ module Admin
       @q = Restaurant.ransack(params[:q])
     end
 
-    def restaurant_params
-      params.require(:restaurant).permit(:name, :address, :latitude, :longitude)
+    def set_restaurant
+      @restaurant = Restaurant.find(params[:id])
     end
   end
 end
