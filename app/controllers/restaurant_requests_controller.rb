@@ -10,9 +10,9 @@ class RestaurantRequestsController < ApplicationController
   def create
     @restaurant_request = current_user.restaurant_requests.build(request_params)
     if @restaurant_request.save
-      redirect_to restaurants_path, notice: '申請を送信しました。管理者が確認します。'
+      redirect_to restaurants_path, notice: t('flash.restaurant_requests.created')
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 

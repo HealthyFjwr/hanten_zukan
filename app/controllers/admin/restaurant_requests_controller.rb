@@ -14,19 +14,19 @@ module Admin
     # PATCH /admin/restaurant_requests/:id/approve
     def approve
       @restaurant_request.update!(status: 'approved')
-      redirect_to admin_restaurant_requests_path, notice: '申請を承認しました'
+      redirect_to admin_restaurant_requests_path, notice: t('flash.restaurant_requests.approved')
     end
 
     # PATCH /admin/restaurant_requests/:id/reject
     def reject
       @restaurant_request.update!(status: 'rejected')
-      redirect_to admin_restaurant_requests_path, notice: '申請を却下しました'
+      redirect_to admin_restaurant_requests_path, notice: t('flash.restaurant_requests.rejected')
     end
 
     # DELETE /admin/restaurant_requests/:id
     def destroy
       @restaurant_request.destroy!
-      redirect_to admin_restaurant_requests_path, notice: '申請を削除しました'
+      redirect_to admin_restaurant_requests_path, notice: t('flash.restaurant_requests.deleted')
     end
 
     private

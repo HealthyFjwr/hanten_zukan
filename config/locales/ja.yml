@@ -7,6 +7,15 @@ ja:
     users:
       updated: "プロフィールを更新しました"
       password_updated: "パスワードを変更しました"
+    restaurant_requests:
+      approved: "申請を承認しました"
+      rejected: "申請を却下しました"
+      deleted: "申請を削除しました"
+      created: "申請を送信しました。管理者が確認します。"
+
+  admin:
+    search_restaurants:
+      select_required: "店舗を1つ以上選択してください"
 
   errors:
     messages:
@@ -27,3 +36,30 @@ ja:
         too_long: "は%{count}文字以内で入力してください"
         taken: "はすでに使用されています"
         invalid: "は不正な値です"
+
+    models:
+      restaurant: "飲食店"
+      restaurant_request: "店舗追加申請"
+      user: "ユーザー"
+      comment: "コメント"
+      bookmark: "ブックマーク"
+
+    attributes:
+      restaurant:
+        name: "店名"
+        address: "住所"
+        phone_number: "電話番号"
+        website: "公式サイト"
+        rating: "評価"
+      restaurant_request:
+        prefecture: "都道府県"
+        city: "市町村"
+        name: "店名"
+        status: "ステータス"
+      user:
+        email: "メールアドレス"
+        username: "ユーザー名"
+        password: "パスワード"
+        password_confirmation: "パスワード（確認用）"
+      comment:
+        body: "本文"
