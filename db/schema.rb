@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_04_07_000000) do
+ActiveRecord::Schema[7.1].define(version: 2026_04_08_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -46,6 +46,18 @@ ActiveRecord::Schema[7.1].define(version: 2026_04_07_000000) do
     t.datetime "updated_at", null: false
     t.index ["restaurant_id"], name: "index_comments_on_restaurant_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "restaurant_requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.string "prefecture", null: false
+    t.string "city", null: false
+    t.string "name", null: false
+    t.string "status", default: "pending", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["status"], name: "index_restaurant_requests_on_status"
+    t.index ["user_id"], name: "index_restaurant_requests_on_user_id"
   end
 
   create_table "restaurants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -87,4 +99,5 @@ ActiveRecord::Schema[7.1].define(version: 2026_04_07_000000) do
   add_foreign_key "bookmarks", "users"
   add_foreign_key "comments", "restaurants"
   add_foreign_key "comments", "users"
+  add_foreign_key "restaurant_requests", "users"
 end

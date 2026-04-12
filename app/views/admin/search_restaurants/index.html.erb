@@ -1,81 +1,69 @@
-<% if flash[:notice].present? %>
-  <p style="margin-top:12px; color:#065f46;"><%= flash[:notice] %></p>
-<% end %>
+<div class="w-full">
 
-<% if flash[:alert].present? %>
-  <p style="margin-top:12px; color:#b91c1c;"><%= flash[:alert] %></p>
-<% end %>
+  <h1 class="text-2xl font-bold mb-4">飲食店追加</h1>
 
-<h1 style="margin:0 0 12px;">飲食店追加 </h1>
-
-<% if defined?(@restaurant_count) %>
-  <div style="margin-top:12px; padding:10px; border:1px solid #e5e7eb; border-radius:10px; background:#fff;">
-    DB登録店舗数: <strong style="font-size:18px;"><%= @restaurant_count %></strong> 件
-
-    <% if flash[:saved_count].present? %>
-      <span style="margin-left:12px;">
-        今回保存: <strong style="font-size:18px;"><%= flash[:saved_count] %></strong> 件
-      </span>
-    <% end %>
-  </div>
-<% end %>
-
-<form method="get" action="<%= search_admin_search_restaurants_path %>">
-  <input type="text" name="prefecture" placeholder="都道府県"
-         style="padding:8px; width:160px; border:1px solid #d1d5db; border-radius:8px;">
-  <input type="text" name="city" placeholder="市町村"
-         style="padding:8px; width:160px; border:1px solid #d1d5db; border-radius:8px;">
-  <input type="text" name="keyword" placeholder="店名"
-         style="padding:8px; width:320px; border:1px solid #d1d5db; border-radius:8px;">
-  <button type="submit"
-          style="padding:8px 12px; border-radius:8px; border:none; cursor:pointer;">
-    検索
-  </button>
-</form>
-
-<% if @query.present? %>
-  <p style="margin-top:12px;">
-    検索ワード: <strong><%= @query %></strong>
-  </p>
-
-  <% if @candidates.present? %>
-    <form method="post" action="<%= admin_search_restaurants_path %>" style="margin-top:12px;">
-      <!-- 次のリクエストでも検索条件を維持（hidden） -->
-      <input type="hidden" name="prefecture" value="<%= params[:prefecture] %>">
-      <input type="hidden" name="city" value="<%= params[:city] %>">
-      <input type="hidden" name="keyword" value="<%= params[:keyword] %>">
-
-      <div style="display:flex; flex-direction:column; gap:8px;">
-        <% selected_ids = Array(params[:place_ids]).map(&:to_s) %>
-
-        <% @candidates.each do |c| %>
-          <label style="display:flex; gap:10px; align-items:flex-start; padding:10px;
-                        border:1px solid #e5e7eb; border-radius:10px; cursor:pointer;">
-            <input type="checkbox"
-                   name="place_ids[]"
-                   value="<%= c[:place_id] %>"
-                   <%= 'checked' if selected_ids.include?(c[:place_id].to_s) %>
-                   style="margin-top:4px;">
-            <div>
-              <div style="font-weight:600;"><%= c[:name] %></div>
-              <div style="color:#6b7280;"><%= c[:address] %></div>
-            </div>
-          </label>
-        <% end %>
-      </div>
-
-      <button type="submit"
-              style="margin-top:12px; padding:8px 12px; border-radius:8px; border:none; cursor:pointer;">
-        選択を確定
-      </button>
-    </form>
-
-    <% if params[:place_ids].present? %>
-      <p style="margin-top:12px;">
-        選択件数: <strong><%= Array(params[:place_ids]).size %></strong>
-      </p>
-    <% end %>
-  <% else %>
-    <p style="margin-top:12px; color:#6b7280;">該当なし</p>
+  <!-- DB件数表示 -->
+  <% if defined?(@restaurant_count) %>
+    <div class="mb-6 p-4 border border-gray-200 rounded-lg bg-white">
+      DB登録店舗数: <strong class="text-lg"><%= @restaurant_count %></strong> 件
+    </div>
   <% end %>
-<% end %>
+
+  <!-- 検索フォーム（GETなのでCSRFトークン不要） -->
+  <%= form_with url: search_admin_search_restaurants_path, method: :get, local: true do |f| %>
+    <div class="flex gap-3 mb-6 flex-wrap">
+      <%= f.text_field :prefecture,
+          placeholder: "都道府県",
+          value: params[:prefecture],
+          class: "px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400 w-40" %>
+
+      <%= f.text_field :city,
+          placeholder: "市町村",
+          value: params[:city],
+          class: "px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400 w-40" %>
+
+      <%= f.text_field :keyword,
+          placeholder: "店名",
+          value: params[:keyword],
+          class: "px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400 w-80" %>
+
+      <%= f.submit "検索",
+          class: "px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition cursor-pointer" %>
+    </div>
+  <% end %>
+
+  <!-- 検索結果 -->
+  <% if @query.present? %>
+    <p class="mb-4">
+      検索ワード: <strong><%= @query %></strong>
+    </p>
+
+    <% if @candidates.present? %>
+      <!-- 候補選択フォーム（POSTなのでform_withがCSRFトークンを自動付与） -->
+      <%= form_with url: admin_search_restaurants_path, method: :post, local: true do |f| %>
+        <div class="flex flex-col gap-3 mb-4">
+          <% selected_ids = Array(params[:place_ids]).map(&:to_s) %>
+
+          <% @candidates.each do |c| %>
+            <label class="flex gap-3 items-start p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+              <%= check_box_tag "place_ids[]",
+                  c[:place_id],
+                  selected_ids.include?(c[:place_id].to_s),
+                  class: "mt-1" %>
+              <div>
+                <div class="font-semibold"><%= c[:name] %></div>
+                <div class="text-gray-500 text-sm"><%= c[:address] %></div>
+              </div>
+            </label>
+          <% end %>
+        </div>
+
+        <%= f.submit "選択を確定",
+            class: "px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition cursor-pointer" %>
+      <% end %>
+    <% else %>
+      <p class="text-gray-500">該当なし</p>
+    <% end %>
+  <% end %>
+
+</div>

@@ -2,7 +2,7 @@
 
 module Admin
   class SearchRestaurantsController < Admin::BaseController
-    before_action :set_db_stats, only: %i[index search]
+    before_action :set_db_stats
 
     def index
       @query = ''
@@ -24,25 +24,18 @@ module Admin
 
     # details
     def create
-      @query = session[:admin_search_query].to_s
-      @candidates = session[:admin_search_candidates] || []
-
       @selected_place_ids = Array(params[:place_ids]).compact_blank.map(&:to_s)
       if @selected_place_ids.empty?
-        # I18n 未設定 2026/02/18
+        @query = ''
+        @candidates = []
         flash.now[:alert] = t('admin.search_restaurants.select_required')
-        @saved_restaurants = []
         return render :index
       end
 
       result = Restaurants::ImportFromGoogleDetails.call(@selected_place_ids)
 
-      @saved_restaurants = result.saved_restaurants
-
-      set_db_stats
-
-      flash.now[:notice] = "保存完了: #{result.saved_count}件" if result.saved_count.positive?
-      flash.now[:alert] = "一部の取得/保存で失敗: #{result.errors.join(' / ')}" if result.failed?
+      flash[:notice] = "保存完了: #{result.saved_count}件" if result.saved_count.positive?
+      flash[:alert] = "一部の取得/保存で失敗: #{result.errors.join(' / ')}" if result.failed?
 
       redirect_to admin_search_restaurants_path
     end

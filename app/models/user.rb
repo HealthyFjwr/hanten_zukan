@@ -24,6 +24,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
   has_many :bookmarked_restaurants, through: :bookmarks, source: :restaurant
+  has_many :restaurant_requests, dependent: :destroy
 
   def bookmark(restaurant)
     bookmarked_restaurants << restaurant

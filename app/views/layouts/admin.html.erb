@@ -15,11 +15,34 @@
                    display:flex; align-items:center; justify-content:space-between;
                    padding:0 16px;">
       <strong>飯店図鑑 管理画面</strong>
-      <div>
-        <span style="margin-right:12px;"><%= current_admin_user&.email %></span>
-        <%= button_to "ログアウト", destroy_admin_user_session_path,
-              method: :delete,
-              style: "padding:6px 10px; border-radius:6px; border:none; cursor:pointer;" %>
+
+      <!-- アカウントドロップダウン -->
+      <div data-controller="dropdown"
+           data-action="click@window->dropdown#hide"
+           style="position:relative;">
+
+        <!-- アカウント名ボタン -->
+        <button data-action="click->dropdown#toggle"
+                style="display:flex; align-items:center; gap:6px; background:transparent;
+                       border:none; color:#fff; cursor:pointer; font-size:14px; padding:6px 10px;
+                       border-radius:6px; hover:background:#374151;">
+          <%= current_admin_user&.name.presence || current_admin_user&.email %>
+          <span style="font-size:10px;">▼</span>
+        </button>
+
+        <!-- ドロップダウンメニュー -->
+        <div data-dropdown-target="menu"
+             class="hidden"
+             style="position:absolute; right:0; top:calc(100% + 4px);
+                    background:#fff; border:1px solid #e5e7eb; border-radius:8px;
+                    box-shadow:0 4px 12px rgba(0,0,0,0.15); min-width:140px; z-index:50;">
+          <%= button_to "ログアウト",
+                destroy_admin_user_session_path,
+                method: :delete,
+                style: "width:100%; padding:10px 16px; text-align:left; background:transparent;
+                        border:none; cursor:pointer; color:#374151; font-size:14px;
+                        border-radius:8px; display:block;" %>
+        </div>
       </div>
     </header>
 
@@ -33,6 +56,8 @@
           <%= link_to "飲食店追加", admin_search_restaurants_path,
                 style: "color:#fff; text-decoration:none;" %>
           <%= link_to "飲食店一覧", admin_restaurants_path,
+                style: "color:#fff; text-decoration:none;" %>
+          <%= link_to "店舗追加申請", admin_restaurant_requests_path,
                 style: "color:#fff; text-decoration:none;" %>
         </nav>
       </aside>
